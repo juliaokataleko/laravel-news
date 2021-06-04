@@ -10,13 +10,36 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'body',
+        'user_id',
+        'resume',
+        'image',
+        'category_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(PostCategory::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getReadAttribute()
+    {
+        Read::create([
+            'post_id' => $this->id,
+            'user_id' => auth()->id() ?? ''
+        ]);
+    }
+
+    public function reads()
+    {
+        return $this->hasMany(Read::class);
     }
 }

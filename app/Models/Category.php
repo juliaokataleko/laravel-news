@@ -10,6 +10,13 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'about',
+        'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,7 +24,7 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->belongsTo(PostCategory::class);
+        return $this->belongsTo(Post::class);
     }
     
 }

@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->string('name');
+            $table->string('slug');
             $table->text('about')->nullable();
             $table->boolean('status')->default(1);
             $table->softDeletes();

@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Read extends Model
 {
+    protected $fillable = [
+        'post_id',
+        'user_id'
+    ];
+
     use HasFactory, SoftDeletes;
 
     public function user()

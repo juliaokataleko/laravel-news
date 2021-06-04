@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.posts.index', 
+        [
+            'posts'=>Post::all(),
+            
+        ]);
     }
 
     /**
@@ -25,7 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create_edit', [
+            'categories'=>Category::all(),
+        ]);
     }
 
     /**
@@ -36,7 +43,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->dataValidation($request);
+        $data['slug'] = slug($data['title']);
+        $data['user_id'] = auth()->id();
+
+        if(Post::create($data)) {
+            return redirect(route('posts.index'))->with('success', 'Notícia cadastrada.');
+        }
     }
 
     /**
@@ -58,7 +71,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.create_edit', [
+            'categories'=>Category::all(),
+            'post' => $post
+        ]);
     }
 
     /**
@@ -70,7 +86,14 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $this->dataValidation($request);
+        $data['slug'] = slug($data['title']);
+        $data['user_id'] = auth()->id();
+
+
+        if($post->update($data)) {
+            return redirect(route('posts.index'))->with('success', 'Notícia salva.');
+        }
     }
 
     /**
@@ -81,6 +104,20 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if($post->delete()) {
+            return redirect()->back()->with('success', 'Notícia excluída.');
+        }
+    }
+
+    public function dataValidation($request)
+    {
+        return $request->validate([
+            'title' => 'required',
+            'body' => '',
+            'category_id' => '',
+            'resume' => ''
+        ], [
+            'title.required' => 'Por favor informe o titulo da notícia.'
+        ]);
     }
 }

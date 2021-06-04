@@ -6,3 +6,220 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+$fa-font-path:        "../webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+
+// Custom style
+
+body, ul, li, p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding-bottom: 4em;
+}
+
+.main-title {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+.header {
+    background-color: #d1d5d8;
+    padding: 8px 0;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        a {
+            color: rgb(40, 45, 49);
+        }
+
+        .my-brand {
+            font-size: 25px;
+            color: #000;
+            font-weight: 900;
+            text-decoration: none;
+            transition: 0.4s;
+
+            &:hover {
+                color: #0c6da5;
+            }
+        }
+
+        nav {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+    
+        .menu {
+            display: flex;
+            
+            li {
+                margin-left: 10px;
+    
+                a {
+                    display: block;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+    
+}
+
+.info {
+    background-color: #1377b1;
+    padding: 3px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.news {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+
+    div {
+        flex: 1 1 250px;
+        margin: 10px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;       
+
+        img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        p, article {
+            padding: 20px;
+        }
+
+        a {
+            width: 100px;
+            display: block;
+            margin: auto;
+            text-align: center;
+            background: #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: #111;
+            transition: 0.4s;
+
+            &:hover {
+                background: #1377b1;
+                text-decoration: none;
+                color: #fff;
+            }
+        }
+
+        small {
+            display: block;
+            padding: 20px;
+            padding-bottom: 2em;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic;
+        }
+    }
+}
+
+.post-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 890px;
+    margin: 0 auto;
+    
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+    }
+
+    a {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 8px;
+    }
+}
+
+.footer {
+    background: #ddd;
+    line-height: 3em;
+    height: 3em;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .header {
+    
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .my-brand {
+                font-size: 35px;
+                color: #000;
+                font-weight: 900;
+            }
+    
+            a {
+                color: rgb(40, 45, 49);
+            }
+
+            nav, form {
+                width: 100%;
+            }
+        
+            .menu {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                li {
+                    margin-right: 10px;
+                    margin-left: 0px;
+                    a {
+                        display: block;
+                        padding: 10px 0;
+                    }
+                }
+            }
+        }
+        
+    }
+}

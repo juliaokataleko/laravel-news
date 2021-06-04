@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Cviebrock\EloquentSluggable\Services\SlugService;
 class CategoryController extends Controller
 {
     /**
@@ -15,7 +15,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $cat = NULL;
+
+        if(request('cat') AND !empty(request('cat'))) {
+            $cat = Category::findOrFail(request('cat'));
+        }
+        return view('admin.categories.index', 
+        [
+            'categories'=>Category::all(),
+            'cat' => $cat
+        ]);
     }
 
     /**
@@ -36,7 +45,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->dataValidation($request);
+        $data['slug'] = slug($data['name']);
+        $data['user_id'] = auth()->id();
+
+        if(Category::create($data)) {
+            return redirect()->back()->with('success', 'Categoria cadastrada.');
+        }
     }
 
     /**
@@ -70,7 +85,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $this->dataValidation($request);
+        $data['slug'] = slug($data['name']);
+        $data['user_id'] = auth()->id();
+
+        if($category->update($data)) {
+            return redirect(route('categories.index'))->with('success', 'Categoria salva.');
+        }
     }
 
     /**
@@ -81,6 +102,17 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if($category->delete()) {
+            return redirect()->back()->with('success', 'Categoria excluída.');
+        }
+    }
+
+    public function dataValidation($request)
+    {
+        return $request->validate([
+            'name' => 'required'
+        ], [
+            'name.required' => 'Por favor informe o nome da categoria.'
+        ]);
     }
 }
