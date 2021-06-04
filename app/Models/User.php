@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Post;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,4 +41,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function reads()
+    {
+        return $this->hasMany(Read::class);
+    }
+
+    public function post_categories()
+    {
+        return $this->hasMany(PostCategory::class);
+    }
 }
